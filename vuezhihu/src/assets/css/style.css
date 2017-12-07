@@ -1,0 +1,279 @@
+﻿body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,fieldset,legend,button,input,textarea,form,th,td,figure{margin:0;padding:0}
+
+/* 重置默认字体和大小 */
+body{ font-size:0.28rem; font-family:Microsoft Yahei,Helvetica,Arial,sans-serif; /* color:#606366; background:#f2f2f2; */}
+h1,h2,h3,h4,h5,h6,b{font-size:100%;font-weight:normal}
+em{font-style:normal}
+strong{font-weight:700}
+button,input,select,textarea{font-size:100%;-moz-appearance:none; -ms-progress-appearance:none; -webkit-appearance:none;font-family:Helvetica,Arial,sans-serif;}
+
+/*重置文本格式*/
+a{text-decoration:none}/*;  color:#525252; */
+q:before,q:after{content:""}
+/* 重置表格元素 */
+table{border-collapse:collapse;border-spacing:0}
+/* 去除默认边框 */
+fieldset,img{border:none}
+/* 重置列表元素 */
+ul,ol{list-style:none}
+/* 媒体元素 */
+audio:not([controls]){display:none;height:0}
+.display-flex,.wap-app > ul{display:-moz-box;display:-webkit-box;display:-webkit-flex;display:-moz-flex;display:-ms-flexbox;display:-ms-flex;display:flex}
+.flex-box,.search-page .search-input{display:-moz-box;display:-webkit-box;display:-webkit-flex;display:-moz-flex;display:-ms-flexbox;display:-ms-flex;display:flex}
+
+/* float */
+.fd-left{float:left}
+.fd-right{float:right}
+.fd-clear{clear:both}
+.fd-clr:after{display:block;clear:both;height:0;content:"\0020"}
+.clearfix:before,.clearfix:after{content:" ";display:table;}
+.clearfix:after{clear:both;}
+
+/* position */
+.fd-locate{position:relative}
+
+/* display */
+.fd-hide{display:none}
+.fd-show{display:block}
+.dib{display: inline-block;}
+.fd-table{ display:table; width:100%;}
+
+/* 设置元素的盒模型为flex */
+.flex{ display:-webkit-box;display:-moz-box;display:-webkit-flex;display:flex;}
+.flex .flex_div{-webkit-box-flex:1;-moz-box-flex:1;-webkit-flex:1;flex:1 1 0; } 
+
+
+/* 禁止长按链接与图片弹出菜单 */
+img{ vertical-align:middle;width:100%;}
+a,img {-webkit-touch-callout: none;}
+a{-webkit-tap-highlight-color: rgba(0,0,0,0)}
+.text-left{ text-align:left;}
+.text-center{ text-align:center;}
+.text-right{ text-align:right;}
+
+
+
+/* margin */
+.marlr20{margin-left:0.2rem;margin-right:0.2rem;}
+.mart50{margin-top:0.5rem;}
+.mart30{ margin-top:0.3rem;}
+.marlr30{margin-left:0.3rem;margin-right:0.3rem;}
+.marb{margin-bottom:0.5rem;}
+
+/* padding */
+.padlr30{padding-left:0.3rem;padding-right:0.3rem;}
+  
+/* border */
+.borderb0 { border-bottom:0!important;}
+.bordert1{border:1px solid transparent !important;}
+
+/*font-size:20px 字体大小*/
+.c-f60{font-size:0.6rem;}
+.c-f34{font-size:0.34rem;}
+.c-f32{font-size:0.32rem;}
+.c-f30{font-size:0.3rem;}
+.c-f28{font-size:0.28rem;}
+.c-f26{font-size:0.26rem;}
+  
+/****font-color***字体颜色****/
+.c-303030{
+  color:#303030;
+}
+.c-ab0000{
+  color:#ab0000;
+}
+.c-fff{
+  color:#ffffff;
+}
+
+/* background */
+.bg-fff{ background:#fff;}
+.bg-eee{ background:#eeeeee;}
+
+/**一行文本显示****/
+.c-nowrap{
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.c-nowrap2{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow:ellipsis;
+}
+/* 设置元素的盒模型为border-box */
+*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;text-size-adjust:100%;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+
+/*去除元素周围的虚线*/
+*:focus{outline:none}
+
+*{
+   box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -ms-box-sizing:border-box;
+  -o-box-sizing:border-box;
+  -webkit-tap-highlight-color: transparent;
+
+}
+
+/***input输入框***/
+ input:-moz-placeholder {
+  color: #eee;
+}
+
+ input::-moz-placeholder {
+  color: #eee;
+}
+
+ input:-ms-input-placeholder {
+  color: #eee;
+}
+
+ input::-webkit-input-placeholder {
+  color: #eee;
+}
+
+
+
+/*模拟checkbox 选中效果:红色背景 圆点*/
+.check-tip {
+  display: inline-block;
+  height: 0.26rem;
+  width: 0.26rem;
+  border: 1px solid #EEEEEE;
+  border-radius: 50%;
+  margin-left: 0.26rem;
+  vertical-align: middle;
+  margin-right: 0.1rem;
+}
+.check-tip.checked {
+  background: #FE2B53;
+  box-shadow: 0px 0px 2px #fc5270;
+}
+
+/*****弹框样式*******/
+#pop{
+  position:fixed;
+  left:0px;
+  right:0px;
+  top:0px;
+  bottom:0px;
+  background:rgba(0,0,0,0.3);
+}
+#pop .areapart{
+  padding:0.3rem 0.3rem;
+  background:#fff;
+  border-radius:5px;
+  position:absolute;
+  left:50%;
+  top:50%;
+  -webkit-transform:translate(-50%,-50%);
+  -moz-transform:translate(-50%,-50%);
+  -ms-transform:translate(-50%,-50%);
+  -o-transform:translate(-50%,-50%);
+  transform:translate(-50%,-50%);
+   /*  opacity:0;*/
+ /* transition:all 0.3s;*/
+}
+/*#pop.actvive{display:block;}
+#pop .areapart.active{opacity:1;top:50%;}*/
+
+
+
+
+
+
+
+
+/*html {
+  font-size: 42.66667px !important;
+}
+body {
+  margin: 0 auto;
+}
+@media only screen and (min-width: 320px) {
+  html {
+    font-size: 42.66667px !important;
+  }
+}
+
+@media only screen and (min-width: 360px) {
+  html {
+    font-size: 48px !important;
+  }
+}
+
+@media only screen and (min-width: 375px) {
+  html {
+    font-size: 50px !important;
+  }
+}
+
+@media only screen and (min-width: 400px) {
+  html {
+    font-size: 53.33333px !important;
+  }
+}
+
+@media only screen and (min-width: 414px) {
+  html {
+    font-size: 55.2px !important;
+  }
+}
+
+@media only screen and (min-width: 540px) {
+  html {
+    font-size: 72px !important;
+  }
+}
+
+@media only screen and (min-width: 750px) {
+  html {
+    font-size: 100px !important;    
+  }
+}*/
+
+/****
+  计算字体方法,设计的图尺寸是以iphone 750为宽度的,假设
+  1rem=75px;-->先扩大到100px。所以其他分辨率的尺寸就是
+  750  100(font-size:100px)-->540px以上的
+  540   x    所以字体大小就是x=72px(font-size:72px)
+***/
+
+/* .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+    color: #fff;
+    text-decoration: none;
+  background-color: #333;
+  border-radius:5px;
+}
+
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
+    background-color: #eee;
+    border-color: #337ab7;
+}
+a:focus, a:hover {
+    color: #23527c;
+    text-decoration: none;
+  border-radius:5px;
+   margin-top:7px !important;
+   padding:8px !important;
+} 
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color: #eee;
+}
+ */
+/* .nav .open > a,
+.nav .open > a:hover,
+.nav .open > a:focus {
+  background-color: #eee;
+  border-color: #337ab7;
+} */
