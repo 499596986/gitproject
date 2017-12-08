@@ -1,12 +1,7 @@
 <template>
 	<div class="theme">
-		<div :class="{loading:loadanimate}">
-	          <span class="left"></span>
-	          <span class="middle"></span>
-	          <span class="right"></span>
-	    </div>
-	    <div v-if="!loadanimate">
-			<div class="theme-banner fd-locate" >
+	    <div v-if="!this.$parent.loadanimate">
+			<div class="theme-banner fd-locate">
 				<img  src="../../assets/images/banner2.jpg" alt="" >
 				<div class="theme-banner-content">
 					<h2>{{data.description}}</h2>
@@ -34,15 +29,16 @@
 		data(){
 			return {
 				data:{},
-				loadanimate:true
-
+			//	loadanimate:true
 			}
 		},
 		mounted(){
 			this.init(this.$route.params.id);
+			this.$parent.loadanimate=true;
 		},
 		watch:{
 			"$route"(to,from){
+				this.$parent.loadanimate=true;
 				this.init(to.params.id);
 			}
 		},
@@ -50,8 +46,12 @@
 			init(id){
 				api.getthemedata(id).then(res=>{
 					this.data=res.data;
-					this.loadanimate=false;
+					this.$parent.loadanimate=false;
 				}).catch(err=>alert("获取不到数据"))
+			},
+			goto(id){
+				this.$router.push({"path":"/detail/add/"+id});
+				this.$parent.loadanimate=false;
 			}
 		}
 	}

@@ -1,13 +1,22 @@
 <template>
   <div id="app">
     <header class="header">
-        <span class="fa fa-reorder" v-on:click="menuisopen"></span>
+        <span class="fa "  :class='{"fa-reorder":headerback }'  v-on:click="menuisopen"></span>
+        <span class="fa" :class='{"fa-angle-left":!headerback}' v-on:click="goback"></span>
     </header>
-
+    <div :class="{loading:loadanimate}">
+          <span class="left"></span>
+          <span class="middle"></span>
+          <span class="right"></span>
+    </div>
 
     <menus ref="menuchild" v-on:nothidden="nohidden" ></menus>
-    <div class="changerouter" :class="{ishidden:ishidden}"  >
-          <router-view></router-view>
+    <div class="changerouter" :class="{ishidden:ishidden}" >
+        <transition :name="transitionname">
+            <keep-alive> 
+                  <router-view></router-view>
+            </keep-alive>
+        </transition>
     </div>
 
   </div>
@@ -22,6 +31,7 @@ import "./assets/css/font-awesome.css"  //字体图标
 
 import Swiper from "../static/swiper.js"   //作为全局的swiper
 import "../static/swiper.css"
+import $ from "jquery"
 
 import menus from "./components/com/menu.vue"
 
@@ -32,10 +42,12 @@ export default {
   data(){
     return {
        ishidden:0,  
+       headerback:true,
+       loadanimate:true,
+       transitionname:"slide-left"
     }
   },
   mounted(){
-
   },
   methods:{
     menuisopen(){
@@ -44,7 +56,23 @@ export default {
     },
     nohidden(){
       this.ishidden=0;
+    },
+    goback(){
+      //this.$router.go(-1);
+      window.history.back();
     }
+  },
+  watch:{
+      '$route'(to,from){
+          const toDepth=to.path.split("/").length;
+          const fromDepth=from.path.split("/").length;
+          this.transitionname=toDepth<fromDepth?"slide-right":"slide-left";
+          if(to.path.indexOf("/detail/add/")!=-1){
+             this.headerback=false;
+          }else{
+            this.headerback=true;
+          }
+      }
   }
   
 }
@@ -113,6 +141,8 @@ export default {
   color:#5B7492;
   font-size:0.35rem;
   line-height:0.6rem;
+  -webkit-flex:1;
+  flex:1;
 }
 
 
@@ -127,6 +157,31 @@ export default {
 }
 .ishidden{
   overflow:hidden;
+}
+
+
+
+
+.slide-left-enter, .slide-right-leave-active {
+  -webkit-transform:translateX(100%);
+  transform:translateX(100%);
+  opacity:0;
+}
+.slide-left-leave-active, .slide-right-enter {
+  opacity: 0;
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+
+.slide-left-enter-active,.slide-right-enter-active {
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+}
+.slide-left-leave-active,.slide-right-leave-active {
+ /*   -webkit-transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);*/
+     -webkit-transition: all .3s ease;
+    transition: all .3s ease;
 }
 
 

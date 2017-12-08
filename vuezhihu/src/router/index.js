@@ -7,7 +7,8 @@ import detail from "../components/view/detail.vue"
 
 Vue.use(Router)
 
-export default new Router({
+export default new Router({ 
+  mode:"history",
   routes: [
     {
       path: '/',
@@ -20,9 +21,17 @@ export default new Router({
     	component:theme
     },
     {
-      path:"/detail/:id",
+      path:"/detail/add/:id",
       name:"detail",
       component:detail
     }
-  ]
+  ],
+  scrollBehavior(to,from,savedPosition){
+    if(savedPosition){
+      return savedPosition
+    }else{
+      return { x:100,y:100}
+    }
+
+  }
 })
