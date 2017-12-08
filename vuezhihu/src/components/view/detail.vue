@@ -1,12 +1,6 @@
 <template>
 	<div class="detail">
-		<div :class="{loading:loadanimate}">
-	          <span class="left"></span>
-	          <span class="middle"></span>
-	          <span class="right"></span>
-	    </div>
-	    
-		<div v-if="!loadanimate" >
+		<div v-if="!this.$parent.loadanimate" >
 			<link rel="stylesheet" :href="data.css[0]">
 			<div class="detail-banner fd-locate">
 	    		<img src="../../assets/images/banner.jpg" alt="">
@@ -25,24 +19,25 @@ import api from "../../mock/api.vue"
 	export default{
 		data(){
 			return {
-				data:"",
-				loadanimate:true
+				data:""
 			}
 		},
-		created(){
+		mounted(){
+			this.$parent.loadanimate=true;
 			this.init(this.$route.params.id);
+			console.log("detail")
 		},
 		watch:{
 			"$route"(to,from){
+			//	this.$parent.loadanimate=true;
 				this.init(to.params.id);
 			}
 		},
 		methods:{
 			init(id){
 				api.getdetaildata(id).then(res=>{
-					console.log(res)
 					this.data=res.data;
-					this.loadanimate=false;
+					this.$parent.loadanimate=false;
 				})
 			}
 		}

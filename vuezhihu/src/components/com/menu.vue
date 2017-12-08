@@ -27,7 +27,7 @@
 			return {
 				menulist:{},
 				menuisopen:0,
-				transitionname:"slide-right",
+				transitionname:"slide-rightt",
 				showhide:"hide"
 			}
 		},
@@ -103,11 +103,11 @@
 }
 
 
-.slide-right-enter,.slide-right-leave-to{
+.slide-rightt-enter,.slide-rightt-leave-to{
 	opacity:0;
 	left:-60%;
 }
-.slide-right-enter-active.slide-right-leave-active{
+.slide-rightt-enter-active.slide-rightt-leave-active{
 	transition:all 0.2s;
 }
 .showhide-enter,.showhide-leave-to{

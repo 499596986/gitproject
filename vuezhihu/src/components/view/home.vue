@@ -1,12 +1,6 @@
 <template>
-	<div id="home">
-		<div :class="{loading:loadanimate}">
-	          <span class="left"></span>
-	          <span class="middle"></span>
-	          <span class="right"></span>
-	    </div>
-
-		<div  v-if="!loadanimate">
+	<div id="home" v-on:scroll="pagescroll">
+		<div v-if="!this.$parent.loadanimate" class="documenth">
 			<div class="home-banner">
 				<div class="swiper-container">
 		            <div class="swiper-wrapper">
@@ -31,34 +25,72 @@
 					</ul>
 				</div>
 			</div>
+			
+			<div class="home-text" v-for="(item,index) in prestories">
+				<div class="home-list">
+					<h2>{{item.date}}</h2>
+					<ul>
+						<li v-for="(item2,index2) in item.stories" v-on:click="goto(item2.id)">
+							<img src="../../assets/images/content.jpg" alt="">
+							<p>{{item2.title}}</p>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+
+			<div class="homeloading" v-if="homeloading">
+				加载中。。。
+			</div>
+
 		</div>
 	</div>
 </template>
 <script>
 //import Vue from "vue"
 import api from "../../mock/api.vue";
+import $ from "jquery"
 
 export default{
 	name:"home",
 	data(){
 		return {
-			loadanimate:true,
 			date:"",
 			swiperdata:[],
 			stories:[],
+			prestories:[],
+			homeloading:false,
+			day:-1,
+			scrollhei:0
+
 		}
 	},
 	mounted(){
-		this.init()
+		this.$parent.loadanimate=true;
+		this.init();	
+		this.date=new Date();
+		console.log(this.scrollhei);
+		console.log("a")
+	},
+	activated(){
+		console.log("acitvate")
+		console.log(this.scrollhei);
+	},
+	watch:{
+		"$route"(to,from){
+			//this.$parent.headerback=true;
+			console.log(this.scrollhei)
+			// $(".documenth").scrollTop(this.scrollhei);
+			//$("#home").scrollTop(this.scrollhei);
+		}
 	},
 	methods:{
 		init(){
 			api.gethomenowdata().then(res=>{
-				console.log(res);
+				this.$parent.loadanimate=false;
 				this.date=res.data.date;
 				this.swiperdata=res.data.top_stories;
 				this.stories=res.data.stories;
-
 				this.$nextTick(function(){
 					new Swiper(".swiper-container",{ 
 		              direction:"horizontal",
@@ -69,14 +101,51 @@ export default{
 					  pagination:'.swiper-pagination'      
 				    })
 				})
-				this.loadanimate=false;
-			})
+
+			})	
 		},
 		goto(id){
-			this.$router.push({"path":"/detail/"+id});
-			// api.getdetaildata(id).then(res=>{
-			// 	console.log(res);
-			// })
+			this.$router.push({"path":"/detail/add/"+id});
+
+			this.scrollhei=$("#home").scrollTop();
+
+console.log(this.scrollhei)
+
+			//$("#home").scrollTop(this.scrollhei);
+		},
+		pagescroll(){
+
+			var windowh=$(window).height();
+			var scrolltop=$("#home").scrollTop();
+			var documenth=$(".documenth").height();
+			this.scrollhei=scrolltop;
+
+			if((documenth-windowh-scrolltop<30)&& this.homeloading==false){
+				this.homeloading=true;
+
+
+				this.day=this.day+1;
+				let d=new Date().getTime()-this.day*86400000;
+				this.getlistdata(this.currendate(d));
+			}
+		},
+		getlistdata(date){
+			api.gethomepredata(date).then(res=>{
+				
+				this.prestories.push(res.data);
+console.log(res);
+				this.homeloading=false;
+
+			}).catch(err=>console.log("获取不到后台数据"))
+		},
+		currendate(date){
+			let year=new Date(date).getFullYear();
+			let month=new Date(date).getMonth()+1;
+			let dat=new Date(date).getDate();
+			month=month<=9?("0"+month):month;
+			dat=dat<=9?("0"+dat):dat;
+			return ""+year+month+dat;
+
 		}
 	}
 }
@@ -85,6 +154,14 @@ export default{
 
 </script>
 <style scope>
+#home{
+	width:100%;
+	height:100%;
+	overflow:auto;
+}
+
+
+
 .home-banner .slide-con{
 	position:relative;
 	height:6rem;
@@ -110,5 +187,10 @@ export default{
 }
 
 
+.homeloading{
+	text-align:center;
+	font-size:0.36rem;
+	margin:0.3rem 0px 0.3rem;
+}
 
 </style>
