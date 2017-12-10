@@ -3,7 +3,9 @@
 </template>
 <script>
 	export default{
-		loadanimate:false
+		install(Vue,option={}){
+			Vue.prototype.height=0;
+		}
 	}
 
 </script>

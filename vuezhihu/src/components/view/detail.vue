@@ -22,22 +22,40 @@ import api from "../../mock/api.vue"
 				data:""
 			}
 		},
+		created(){
+			console.log("detail created")
+		},
 		mounted(){
 			this.$parent.loadanimate=true;
 			this.init(this.$route.params.id);
-			console.log("detail")
+			console.log("detail mounted")
 		},
 		watch:{
 			"$route"(to,from){
 			//	this.$parent.loadanimate=true;
 				this.init(to.params.id);
+			//	console.log("detail watchroute  ceshi")
 			}
+		},
+		activated(){
+
+			this.$parent.loadanimate=true;
+
+		//	console.log(this.$parent);
+		//	console.log("detail activated "+this.$parent.loadanimate)
+		},
+		deactivated(){
+		
+			this.$parent.loadanimate=false;
+		//	 console.log(this.$parent)
+			console.log("detail deactivated "+this.$parent.loadanimate)
 		},
 		methods:{
 			init(id){
 				api.getdetaildata(id).then(res=>{
 					this.data=res.data;
 					this.$parent.loadanimate=false;
+					console.log("detail activated2 "+this.$parent.loadanimate)
 				})
 			}
 		}

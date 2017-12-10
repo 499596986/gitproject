@@ -4,6 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import global from "./components/global"
+Vue.use(global);
+
 Vue.config.productionTip = false
 
 import ajax from "./mock/ajax.vue";

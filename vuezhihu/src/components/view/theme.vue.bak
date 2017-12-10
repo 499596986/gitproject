@@ -1,23 +1,21 @@
 <template>
 	<div class="theme">
-		<div>
-		    <div v-if="!this.$parent.loadanimate">
-				<div class="theme-banner fd-locate">
-					<img  src="../../assets/images/banner2.jpg" alt="" >
-					<div class="theme-banner-content">
-						<h2>{{data.description}}</h2>
-						<p>{{data.name}}</p>
-					</div>
+	    <div v-if="!this.$parent.loadanimate">
+			<div class="theme-banner fd-locate">
+				<img  src="../../assets/images/banner2.jpg" alt="" >
+				<div class="theme-banner-content">
+					<h2>{{data.description}}</h2>
+					<p>{{data.name}}</p>
 				</div>
-				<div class="home-text theme-text">
-					<div class="home-list">
-						<ul>
-							<li v-for="(item,index) in data.stories" v-on:click="goto(item.id)">
-								<img  src="../../assets/images/content.jpg" alt="" >
-								<p>{{item.title}}</p>
-							</li>
-						</ul>
-					</div>
+			</div>
+			<div class="home-text theme-text">
+				<div class="home-list">
+					<ul>
+						<li v-for="(item,index) in data.stories" v-on:click="goto(item.id)">
+							<img  src="../../assets/images/content.jpg" alt="" >
+							<p>{{item.title}}</p>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -25,7 +23,6 @@
 
 </template>
 <script>
-	import Vue from "vue"
 	import api from "../../mock/api.vue"
 
 	export default{
@@ -35,26 +32,15 @@
 			//	loadanimate:true
 			}
 		},
-		created(){
-			console.log("theme created")
-		},
 		mounted(){
-			this.$parent.loadanimate=true;
 			this.init(this.$route.params.id);
-			console.log("theme mounted")
+			this.$parent.loadanimate=true;
 		},
 		watch:{
 			"$route"(to,from){
-			//	console.log(this.$parent);
-			//	this.$parent.loadanimate=true;
-			//	console.log(this.$parent.loadanimate);
+				this.$parent.loadanimate=true;
 				this.init(to.params.id);
-
 			}
-		},
-		activated(){
-			//this.$parent.loadanimate=true;
-			console.log("theme activated")
 		},
 		methods:{
 			init(id){
@@ -65,23 +51,12 @@
 			},
 			goto(id){
 				this.$router.push({"path":"/detail/add/"+id});
-			//	this.$parent.loadanimate=false;
-				this.height=$(".theme").scrollTop();
-			//	console.log(this.height);
+				this.$parent.loadanimate=false;
 			}
 		}
 	}
 </script>
 <style scope>
-	.theme{
-		position:fixed;
-		top:0px;
-		bottom:0px;
-		left:0px;
-		right:0px;
-		overflow:auto;
-	}
-
 	.theme-banner .theme-banner-content{
 		position:absolute;
 		font-size:0.4rem;
@@ -101,7 +76,7 @@
 		padding-bottom:0.3rem;
 		margin-bottom:0.1rem;
 		position:relative;
-		width:70%;
+		width:60%;
 		display:inline-block;
 	}
 	.theme-banner h2:after{

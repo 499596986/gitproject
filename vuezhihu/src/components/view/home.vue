@@ -65,21 +65,35 @@ export default{
 
 		}
 	},
+	created(){
+		console.log("created");
+	},
+	activated(){
+		//console.log("acitvate")
+		//console.log(this.scrollhei);
+
+	//	console.log(this.$parent.loadanimate);
+		//debugger;
+		//console.log(this)
+		
+		$("#home").scrollTop(this.height);
+	//	console.log(this.$parent);
+		console.log(this.$parent.loadanimate);
+
+	},
 	mounted(){
 		this.$parent.loadanimate=true;
 		this.init();	
 		this.date=new Date();
-		console.log(this.scrollhei);
-		console.log("a")
-	},
-	activated(){
-		console.log("acitvate")
-		console.log(this.scrollhei);
+
+
+		console.log("mounted");
+	//	console.log(this.$parent.loadanimate);
 	},
 	watch:{
 		"$route"(to,from){
 			//this.$parent.headerback=true;
-			console.log(this.scrollhei)
+			//console.log(this.scrollhei)
 			// $(".documenth").scrollTop(this.scrollhei);
 			//$("#home").scrollTop(this.scrollhei);
 		}
@@ -101,7 +115,7 @@ export default{
 					  pagination:'.swiper-pagination'      
 				    })
 				})
-
+				console.log("后退")
 			})	
 		},
 		goto(id){
@@ -109,7 +123,8 @@ export default{
 
 			this.scrollhei=$("#home").scrollTop();
 
-console.log(this.scrollhei)
+			this.height=$("#home").scrollTop();
+			console.log(this.height);
 
 			//$("#home").scrollTop(this.scrollhei);
 		},
@@ -119,6 +134,8 @@ console.log(this.scrollhei)
 			var scrolltop=$("#home").scrollTop();
 			var documenth=$(".documenth").height();
 			this.scrollhei=scrolltop;
+
+
 
 			if((documenth-windowh-scrolltop<30)&& this.homeloading==false){
 				this.homeloading=true;
