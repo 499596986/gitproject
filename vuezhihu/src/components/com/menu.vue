@@ -22,7 +22,6 @@
 <script>
 	import api from "../../mock/api.vue"
 	export default{
-		name:"menu",
 		data(){
 			return {
 				menulist:{},
@@ -49,11 +48,8 @@
 			goto(id){
 				if(id==-1){
 					this.$router.push("/");
-				//	this.$parent.loadanimate=false;
 				}else{
 					this.$router.push("/theme/"+id);
-
-					console.log("dianji"+this.$parent.loadanimate)
 					this.$parent.loadanimate=true;
 				}
 			}

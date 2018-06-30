@@ -10,7 +10,7 @@
           <span class="right"></span>
     </div>
 
-    <menus ref="menuchild" v-on:nothidden="nohidden" ></menus>
+   <menua ref="menuchild" v-on:nothidden="nohidden" ></menua>
     <div class="changerouter" :class="{ishidden:ishidden}" >
         <transition :name="transitionname">
             <keep-alive> 
@@ -33,12 +33,12 @@ import Swiper from "../static/swiper.js"   //作为全局的swiper
 import "../static/swiper.css"
 import $ from "jquery"
 
-import menus from "./components/com/menu.vue"
+import menua from "./components/com/menu.vue"
 
 
 export default {
   name: 'app',
-  components:{ menus },
+  components:{ menua },
   data(){
     return {
        ishidden:0,  
@@ -76,12 +76,6 @@ export default {
   }
   
 }
-
-
-
-
-
-
 </script>
 
 

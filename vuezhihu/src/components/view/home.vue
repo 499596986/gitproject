@@ -1,7 +1,7 @@
 <template>
-	<div id="home" v-on:scroll="pagescroll">
+	<div id="home" v-on:scroll="pagescroll">  
 		<div v-if="!this.$parent.loadanimate" class="documenth">
-			<div class="home-banner">
+			<div class="home-banner">   
 				<div class="swiper-container">
 		            <div class="swiper-wrapper">
 		                <div class="swiper-slide slide" v-for="(item,index) in swiperdata">
@@ -69,15 +69,7 @@ export default{
 		console.log("created");
 	},
 	activated(){
-		//console.log("acitvate")
-		//console.log(this.scrollhei);
-
-	//	console.log(this.$parent.loadanimate);
-		//debugger;
-		//console.log(this)
-		
 		$("#home").scrollTop(this.height);
-	//	console.log(this.$parent);
 		console.log(this.$parent.loadanimate);
 
 	},
@@ -85,10 +77,6 @@ export default{
 		this.$parent.loadanimate=true;
 		this.init();	
 		this.date=new Date();
-
-
-		console.log("mounted");
-	//	console.log(this.$parent.loadanimate);
 	},
 	watch:{
 		"$route"(to,from){
@@ -101,6 +89,7 @@ export default{
 	methods:{
 		init(){
 			api.gethomenowdata().then(res=>{
+				console.log("数据抓不到了=》data为error了"+res);
 				this.$parent.loadanimate=false;
 				this.date=res.data.date;
 				this.swiperdata=res.data.top_stories;
@@ -115,7 +104,6 @@ export default{
 					  pagination:'.swiper-pagination'      
 				    })
 				})
-				console.log("后退")
 			})	
 		},
 		goto(id){
@@ -124,8 +112,6 @@ export default{
 			this.scrollhei=$("#home").scrollTop();
 
 			this.height=$("#home").scrollTop();
-			console.log(this.height);
-
 			//$("#home").scrollTop(this.scrollhei);
 		},
 		pagescroll(){
@@ -150,7 +136,6 @@ export default{
 			api.gethomepredata(date).then(res=>{
 				
 				this.prestories.push(res.data);
-console.log(res);
 				this.homeloading=false;
 
 			}).catch(err=>console.log("获取不到后台数据"))
