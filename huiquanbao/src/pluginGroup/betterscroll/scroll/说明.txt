@@ -1,0 +1,6 @@
+1、上拉刷新 也可以用这样的  
+this.scroll.on('scrollEnd', () => {
+   if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {   //用距离来判断
+       this.$emit('scrollToEnd')
+   }
+})

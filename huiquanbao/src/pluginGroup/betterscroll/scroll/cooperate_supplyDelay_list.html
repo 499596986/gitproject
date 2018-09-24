@@ -1,0 +1,299 @@
+{extend name="admin@public/base" /}
+{block name="styles"}
+<link rel="stylesheet" href="__PUBLIC__/libs/css/public.css">
+<link rel="stylesheet" href="__PUBLIC__/libs/iconfont/iconfont.css">
+<link rel="stylesheet" href="__PUBLIC__/libs/layui/css/layui.css">
+<link rel="stylesheet" href="__PUBLIC__/libs/css/main.css">
+{/block}
+{block name="main-content"}
+		<!--<link href="__PUBLIC__/css/bootstrap.min.css" rel="stylesheet" />-->
+		<!--<link rel="stylesheet" href="__PUBLIC__/css/font-awesome.min.css" />-->
+		<!--<link rel="stylesheet" href="__PUBLIC__/css/font-awesome-ie7.min.css" />-->
+		<!--<link rel="stylesheet" href="__PUBLIC__/css/cyrillic.css" />-->
+		<!--<link rel="stylesheet" href="__PUBLIC__/css/ace.min.css" />-->
+		<!--<link rel="stylesheet" href="__PUBLIC__/css/ace-rtl.min.css" />-->
+		<!--<link rel="stylesheet" href="__PUBLIC__/css/ace-skins.min.css" />-->
+
+
+		<!--<link rel="stylesheet" href="__PUBLIC__/css/ace-ie.min.css" />-->
+		<!--<script src="__PUBLIC__/js/ace-extra.min.js"></script>-->
+		<!--<script src="__PUBLIC__/js/html5shiv.js"></script>-->
+		<!--<script src="__PUBLIC__/js/respond.min.js"></script>-->
+
+
+			<div class="page-content">
+				<!-- 总体资料 -->
+				<div class="ov">
+					<div class="total-data clearfix por">
+						<div class="total-data-card" onclick="window.location.href='{:url('admin/Bussiness/cooperate_supplyDelay_list')}'">
+							<span class="title" >全部</span>
+						</div>
+						<div class="total-data-card" onclick="window.location.href='{:url('admin/Bussiness/cooperate_supplyDelay_list',array('state'=>0))}'">
+							<span class="title" >未审核</span>
+							<span class="num">{$num_data['no_sw_num']|default=0}</span>
+						</div>
+						<div class="total-data-card" onclick="window.location.href='{:url('admin/Bussiness/cooperate_supplyDelay_list',array('state'=>1))}'">
+							<span class="title" >已拒绝</span>
+							<span class="num" >{$num_data['fail_sw_num']|default=0}</span>
+						</div>
+						<div class="total-data-card" onclick="window.location.href='{:url('admin/Bussiness/cooperate_supplyDelay_list',array('state'=>2))}'">
+							<span class="title" >通过审核未延期</span>
+							<span class="num" >{$num_data['no_ad_num']|default=0}</span>
+						</div>
+						<div class="total-data-card" onclick="window.location.href='{:url('admin/Bussiness/cooperate_supplyDelay_list',array('state'=>3))}'">
+							<span class="title" >已延期</span>
+							<span class="num deepyellow-c">{$num_data['yes_num']|default=0}</span>
+						</div>
+						<div class="nav-search" id="nav-search">
+							<form class="form-search" method="post" action="{:url('admin/Bussiness/cooperate_supplyDelay_list')}">
+								<span class="input-icon">
+									<input type="text" name="company" placeholder=" 输入公司名称搜索" class="nav-search-input" id="nav-search-input" autocomplete="off" />
+									<i class="iconfont icon-sousuo"></i>
+								</span>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="right-table">
+					<table class="data-table-center">
+						 <thead>
+							<tr>
+								<th class="text-left box-sizing-box paddingl-15">公司名称</th>
+								<th>城市</th>
+								<th>申请业务员</th>
+								<th>部门</th>
+								<th>合同时间</th>
+								<th>vip时间</th>
+								<th>延期时间</th>
+								<th>商务经理审核状态</th>
+								<th>审核人</th>
+								<th>是否延期</th>
+								<th>创建时间</th>
+								<th style="border-right:#CCC solid 1px;">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+						{foreach name="delay_data" item="v"}
+							<tr>
+								<td class="text-left box-sizing-box paddingl-15">{$v.company_name}</td>
+								<td>{$city_data[$v.city_id]}</td>
+								<td>{$v.admin_name}</td>
+								<td>{$dept_data[$v.dept_id]|default=''}</td>
+								<td>{$v.income_time_begin|default=''} ~ {$v.income_time_end|default=''}</td>
+								<td>{$v.vip_date_begin|date='Y-m-d',###} ~ {$v.vip_date_end|date='Y-m-d',###}</td>
+								<td>{$v.delay_time_begin|date='Y-m-d',###} ~ {$v.delay_time_end|date='Y-m-d',###}</td>
+								<td>
+									{if $v.sw_audit==0}<span class="state-t gray-bg">未审核</span>{elseif $v.sw_audit==1}<span class="state-t green-bg">审核通过</span>{else}<span class="state-t gules-bg">已拒绝</span>{/if}
+								</td>
+								<td>{$v.sw_audit_name}</td>
+								<td>
+									{if $v.admin_audit==0}<span class="state-t gray-bg">未延期</span>{elseif $v.admin_audit==1}<span class="state-t green-bg">已延期</span>{/if}
+								</td>
+								<td>{$v.dateline|date='Y-m-d',###}</td>
+								<td>
+									{if $usr_data.group_id==123||$usr_data.group_id==122}
+<!-- 									<button class="btn btn-sm btn-success pull-left">
+										<a  class="sw_audit"  data-id="{$v.id}" data-type="yes" style="color: white">通过</a>
+									</button>
+									<button class="btn btn-sm btn-danger pull-left">
+										<a  class="sw_audit" data-id="{$v.id}" data-type="no" style="color: white">拒绝</a>
+									</button> -->
+									<div class="operating">
+										{if $v.sw_audit!=1}
+										<a class="iconfont icon-tongguo sw_audit cursor" data-id="{$v.id}" data-type="yes" title="通过"></a>
+										{/if}
+										{if $v.sw_audit!=2}
+										<a class="iconfont icon-jujue sw_audit cursor" data-id="{$v.id}" data-type="no" title="拒绝"></a>
+										{/if}
+										<a class="iconfont icon-chakan detail cursor" data-id="{$v.id}" data-delay="{$v.delay_time_begin|date='Y-m-d',###} - {$v.delay_time_end|date='Y-m-d',###}" data-ht="{$v.income_time_begin|default=''} ~ {$v.income_time_end|default=''}" data-vip="{$v.vip_date_begin|date='Y-m-d',###} ~ {$v.vip_date_end|date='Y-m-d',###}" title="补单延期修改"></a>
+									</div>
+									{elseif $usr_data.uid==1}
+<!-- 									<button class="btn btn-sm btn-success pull-left">
+										<a class="sw_audit" data-id="{$v.id}" data-type="yes" style="color: white">通过</a>
+									</button>
+									<button class="btn btn-sm btn-danger pull-left">
+										<a class="sw_audit" data-id="{$v.id}" data-type="no" style="color: white">拒绝</a>
+									</button>
+									<button class="btn btn-sm btn-info pull-left">
+										<a class="admin_audit" style="color: white" data-id="{$v.id}">确认延期</a>
+									</button> -->
+									<div class="operating">
+										{if $v.sw_audit!=1}
+										<a class="iconfont icon-tongguo sw_audit cursor" data-id="{$v.id}" data-type="yes" title="通过"></a>
+										{/if}
+										{if $v.sw_audit!=2}
+										<a class="iconfont icon-jujue sw_audit cursor" data-id="{$v.id}" data-type="no" title="拒绝"></a>
+										{/if}
+										{if $v.admin_audit!=1}
+										<a class="iconfont icon-yanchanghezuo admin_audit cursor" data-id="{$v.id}" title="确认延期"></a>
+										{/if}
+										<a class="iconfont icon-chakan detail cursor" data-id="{$v.id}" data-delay="{$v.delay_time_begin|date='Y-m-d',###} - {$v.delay_time_end|date='Y-m-d',###}" data-ht="{$v.income_time_begin|default=''} ~ {$v.income_time_end|default=''}" data-vip="{$v.vip_date_begin|date='Y-m-d',###} ~ {$v.vip_date_end|date='Y-m-d',###}" title="补单延期修改"></a>
+									</div>
+									{else/}
+									<div class="operating">
+										<a class="iconfont icon-chakan detail cursor" data-id="{$v.id}" data-delay="{$v.delay_time_begin|date='Y-m-d',###} - {$v.delay_time_end|date='Y-m-d',###}" data-ht="{$v.income_time_begin|default=''} ~ {$v.income_time_end|default=''}" data-vip="{$v.vip_date_begin|date='Y-m-d',###} ~ {$v.vip_date_end|date='Y-m-d',###}" title="补单延期修改"></a>
+									</div>
+									{/if}
+								</td>
+							</tr>
+						{/foreach}
+						</tbody>
+					</table>
+				</div>
+				{$page}
+			</div><!-- /.page-content -->
+
+			<div class="business-modality pof">
+				<div class="business-modality-mask"></div>
+				<div class="business-modality-center poa">
+					<div class="business-modality-head clearfix">
+						<span>补单延期修改</span>
+						<span class="pull-right close-text">关闭</span>
+					</div>
+					<form action="/admin/bussiness/cooperate_supplyDelay_runedit" class="cooperate_form supplement-form">
+						<div class="supplement-form-row">
+							<span>前期合同时间：</span>
+							<input type="text" class="supplement-form-row-inp"  value="" id="early-time" disabled="disabled">
+						</div>
+						<div class="supplement-form-row">
+							<span>前期派单时间：</span>
+							<input type="text" class="supplement-form-row-inp"  value="" id="vip-time" disabled="disabled">
+						</div>
+						<div class="supplement-form-row">
+							<span>延期服务时间：</span>
+							<input type="text" class="supplement-form-row-inp" value="" name="delay_time" id="delay-time">
+							<input type="hidden" id="supply_id" name="id" value="">
+						</div>
+						<div class="supplement-form-row clearfix">
+							<button type="submit" class="supplement-form-row-bt save pull-right">提交修改</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+
+		<!--<script src="__PUBLIC__\js\jquery-2.0.3.min.js"></script>-->
+		<!--<script src="__PUBLIC__\js\jquery-1.10.2.min.js"></script>-->
+		<!--<script type="text/javascript">-->
+			<!--window.jQuery || document.write("<script src='__PUBLIC__/js/jquery-2.0.3.min.js'>"+"<"+"/script>");-->
+		<!--</script>-->
+		<!--<script type="text/javascript">-->
+		 <!--window.jQuery || document.write("<script src='__PUBLIC__/js/jquery-1.10.2.min.js'>"+"<"+"/script>");-->
+		<!--</script>-->
+		<!--<script type="text/javascript">-->
+			<!--if("ontouchend" in document) document.write("<script src='__PUBLIC__/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");-->
+		<!--</script>-->
+		<!--<script src="__PUBLIC__/js/bootstrap.min.js"></script>-->
+		<!--<script src="__PUBLIC__/js/typeahead-bs2.min.js"></script>-->
+		<!--<script src="__PUBLIC__/js/ace-elements.min.js"></script>-->
+		<!--<script src="__PUBLIC__/js/ace.min.js"></script>-->
+{include file="bussiness/data"}
+{/block}
+{block name="scripts"}
+<script src="__PUBLIC__/libs/js/public.js"></script>
+<script src="__PUBLIC__/libs/layui/layui.all.js"></script>
+<script src="__PUBLIC__/libs/js/main.js"></script>
+<script>
+    $(".regionstitle").on("click",function(){
+        $(this).siblings("ul").toggle();
+    });
+
+    $(".sw_audit").on('click',function () {
+		var id = $(this).attr('data-id');
+		var type =$(this).attr('data-type');
+		layer.open({
+			title: '确认?'
+			,content: '是否确认?'
+			,btn: ['确定', '取消']
+			,yes: function(index, layero){
+				$.post('/admin/bussiness/cooperate_supplyDelay_swAudit',{id:id,type:type},function (data) {
+					if (data.code==1){
+						layer.msg(data.msg,{icon:6},3);
+						window.location.href=data.url;
+					}else{
+						layer.msg(data.msg,{icon:5});
+						window.location.href=data.url;
+					}
+				});
+				layer.close(index);
+			}
+			,btn2: function(index, layero){
+				layer.close(index);
+			}
+		});
+    });
+
+    $(".admin_audit").on("click",function(){
+        var id = $(this).attr('data-id');
+        layer.open({
+            title: '确认延期！'
+            ,content: '确认延期将直接改变派单VIP时间！'
+            ,btn: ['确定', '取消']
+            ,yes: function(index, layero){
+                $.post('/admin/bussiness/cooperate_supplyDelay_adAudit',{id:id},function (data) {
+                    if (data.code==1){
+						layer.msg(data.msg,{icon:6},3);
+						window.location.href=data.url;
+                    }else{
+                        layer.msg(data.msg,{icon:5});
+                        window.location.href=data.url;
+                    }
+                });
+                layer.close(index);
+            }
+            ,btn2: function(index, layero){
+                layer.close(index);
+            }
+        });
+    });
+
+    $('.detail').on('click',function () {
+		$('.business-modality').show();
+		var data_ht = $(this).attr('data-ht');
+		var data_vip = $(this).attr('data-vip');
+		var data_delay = $(this).attr('data-delay');
+		var supply_id = $(this).attr('data-id');
+		$('#early-time').val(data_ht);
+		$('#vip-time').val(data_vip);
+		$('#delay-time').val(data_delay);
+		$('#supply_id').val(supply_id);
+    });
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#delay-time' //指定元素
+            ,type: 'date'
+            ,range: true
+        });
+    });
+
+    $(function () {
+        $('.cooperate_form').ajaxForm({
+            beforeSubmit: function () {
+                $('.save').attr('disabled',true);
+            },
+            success: complete2, // 这是提交后的方法
+            dataType: 'json'
+        });
+    });
+
+    function complete2(data) {
+        console.log(data);
+        if (data.code == 1) {
+            layer.alert(data.msg, {icon: 6}, function (index) {
+                layer.close(index);
+                window.location.href = data.url;
+            });
+        } else {
+            layer.alert(data.msg, {icon: 5}, function (index) {
+                layer.close(index);
+                $('.save').attr('disabled',false);
+                if(data.url.length){
+                    window.location.href = data.url;
+                }
+            });
+        }
+    }
+</script>
+{/block}
