@@ -9,6 +9,11 @@ import foodlist from "../views/dataManage/foodlist.vue";
 import orderlist from "../views/dataManage/orderlist.vue"
 import adminlist from "../views/dataManage/adminlist.vue"
 import addshop from "../views/addData/addshop.vue"
+import addgoods from "../views/addData/addgoods.vue"
+import userspread from "../views/echarts/userspread.vue"  
+import textedit from "../views/edit/textedit.vue"
+import ruler from "../views/set/ruler.vue"
+import info from "../views/introduce/info.vue"
 
 Vue.use(Router)
 
@@ -53,7 +58,32 @@ export default new Router({
     			path:'/addshop',
     			name:"addshop",
     			component:addshop
-    		}
+    		},
+            {
+                path:"/addgoods",
+                name:"addgoods",
+                component:addgoods
+            },
+            {
+                path:"/userspread",
+                name:"userspread",
+                component:userspread
+            },
+            {
+                path:"/textedit",
+                name:"textedit",
+                component:textedit
+            },
+            {
+                path:"/ruler",
+                name:"ruler",
+                component:ruler
+            },
+            {
+                path:"/info",
+                name:"info",
+                component:info
+            }
     	]
     }
   ]

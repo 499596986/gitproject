@@ -1,0 +1,313 @@
+{extend name="admin@public/base" /}
+{block name="styles"}
+<link rel="stylesheet" href="__PUBLIC__/libs/layui/css/layui.css">
+<link rel="stylesheet" href="__PUBLIC__/libs/css/main.css"/>
+<link rel="stylesheet" href="__PUBLIC__/libs/css/main2.css"/>
+<link rel="stylesheet" href="__PUBLIC__/libs/css/public.css"/>
+<style>
+        /**我的团队**/
+.page-content-left{width:-moz-calc(100% - 570px); width:-webkit-calc(100% - 570px);width: calc(100% - 570px);float:left;}
+.page-content-right{float:right;width:550px;}
+.my-team-data{ background:#fff;padding-left:15px;padding-right:20px;padding-bottom:35px;width:550px;margin:0px auto;}
+.dottit{font-size: 16px;font-weight: bold;padding-top:15px; margin-bottom:15px;}
+.dottit em{display: inline-block;width: 20px;height: 20px;border-radius: 50%;background: #169BD5; margin-right: 10px;position: relative;top: 3px;}
+.my-team-data-con{margin-left:8px;}
+.current-bg{background:#f2f2f2;padding:15px 0px 0px;border-bottom:1px solid transparent;margin-bottom:15px;}
+.width16{width:16%;}
+.width28{width:28%;}
+.current_data p{font-size:0px; margin-bottom:15px;padding-left:15px;} 
+.current_data p span{display:inline-block;font-size:14px;}
+.current_data p span strong{font-size:16px;}
+@media(max-width:1400px){.page-content-left, .page-content-right{width:100%;float:none;}.my-team-data{ margin-left: 20px;width: auto;margin-top: 20px;}}
+    </style>
+{/block}
+{block name="main-content"}
+
+<!--no-margin s -->
+
+<div class="page-content clearfix" style="position:relative">
+    <div class="page-content-left">
+
+    {include file="index:kefu_info" /}
+    <div class="career-choice-see clearfix">
+        <a href="javascript:void(0)" class="career-choice-bt yellow-bg">个人数据</a>
+        <!-- 团队数据暂时没有 -->
+        <!-- <a href="javascript:void(0)" class="career-choice-bt green-bg">团队数据</a> -->
+    </div>
+    <!-- 客服数据 -->
+    <div class="career-modular">
+        <div class="career-modular-row">
+            <span class="font20 pull-left">我的客服数据</span>
+<!--            <div class="career-data-menu clearfix">
+                <div class="career-data-option active" data-index="0">本月数据</div>
+                <div class="career-data-option" data-index="0">上月数据</div>
+                <div class="career-data-option" data-index="1">今年数据</div>
+                <div class="career-data-option" data-index="1">去年数据</div>
+            </div>-->
+            <div class="career-data-time clearfix">
+                <input type="text" placeholder="选择日期范围" name="date_range" id="career-time0" class="career-time" value="{$param['bgdate']} - {$param['eddate']}">
+                <a href="javascript:void(0)" class="career-data-time-bt" data-url="{:url('Index/index')}" data-type="date_tender">搜索</a>
+            </div>
+            <a class="pull-right" href="javascrip:void(0)" style="color:#1975ff">切换可视化</a>
+        </div>
+        <div class="career-modular-data month-data">
+            <table class="career-modular-table">
+                <thead>
+                    <tr>
+                        <td style="width: 80px;">&nbsp;&nbsp;</td>
+                        <td colspan="4">客户</td>
+                        <td colspan="5">订单</td>
+                        <td colspan="3">&nbsp;&nbsp;</td>
+                    </tr>
+                    <tr class="title">
+                        <td>日期</td>
+                        <td>总数量</td>
+                        <td>未接通</td>
+                        <td>失效</td>
+                        <td>空号</td>
+                        <td>总数量</td>
+                        <td>分标失败</td>
+                        <td>量房失败</td>
+                        <td>签单失败</td>
+                        <td>签单成功</td>
+                        <td>客户转化率</td>
+                        <td>订单转化率</td>
+                        <td>总转化率</td>
+                    </tr>
+                </thead>
+                <tbody id="date_tender">
+                    {include file="index:kefu_date_tender"/}
+                </tbody>
+            </table>
+            <a href="javascript:void(0)" class="open-career-modular-table yellow-bg" data-state="false">展开</a>
+        </div>
+    </div>
+    <!-- 城市订单统计 -->
+    <div class="career-modular">
+        <div class="career-modular-row">
+            <span class="font20 pull-left">城市订单统计</span>
+<!--            <div class="career-data-menu clearfix">
+                <div class="career-data-option active" data-index="0">本月数据</div>
+                <div class="career-data-option" data-index="0">上月数据</div>
+                <div class="career-data-option" data-index="0">今年数据</div>
+                <div class="career-data-option" data-index="0">去年数据</div>
+            </div>-->
+            <div class="career-data-time clearfix">
+                <input type="text" placeholder="选择日期范围" id="career-time1" class="career-time" value="{$param['bgdate']} - {$param['eddate']}">
+                <a href="javascript:void(0)" class="career-data-time-bt" data-url="{:url('Index/index')}" data-type="city_tender">搜索</a>
+            </div>
+        </div>
+        <div class="career-modular-data">
+            <table class="career-modular-table">
+                <thead>
+                    <tr>
+                        <td style="width: 80px;">ID</td>
+                        <td>城市</td>
+                        <td>客户</td>
+                        <td>订单</td>
+                        <td>签单</td>
+                        <td>转化率</td>
+                    </tr>
+                </thead>
+                <tbody id="city_tender">
+                    {include file="index:kefu_city_tender"/}
+                </tbody>
+            </table>
+            <a href="javascript:void(0)" class="open-career-modular-table yellow-bg" data-state="false">展开</a>
+        </div>
+    </div>
+
+
+
+    </div>
+    <div class="echarts-show page-content-right">
+        <div class="my-team-data">
+            <h2 class="dottit"><em></em>我的团队</h2>
+            <div class="my-team-data-con">
+                <div class="current_data current-bg">
+                    <p>
+                        <span class="width16"><strong>本月：</strong></span>
+                        <span class="width28">客户 <strong>{$this_mon_cus}</strong></span>
+                        <span class="width28">订单 <strong>{$this_mon_ten}</strong></span>
+                        <span class="width28">转化率 <strong>{$team_this_month_conversion}%</strong></span>
+                    </p>
+                    <p>
+                        <span class="width16"><strong>上月：</strong></span>
+                        <span class="width28">客户 <strong>{$last_mon_cus}</strong></span>
+                        <span class="width28">订单 <strong>{$last_mon_ten}</strong></span>
+                        <span class="width28">转化率 <strong>{$team_last_month_conversion}%</strong></span>
+                    </p>
+                </div>
+                <div class="my-team-echarts1 current-bg">
+                    <div id="teammain" style="width:500px;height:320px;margin:0px auto;"></div>
+                </div>
+                <div class="my-team-echarts2 current-bg" style="margin-top:20px">
+                    <div id="teamdatamain" style="width:500px;height:400px;margin:0px auto;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- no-margin e -->
+<!--</div>&lt;!&ndash; /.main-content &ndash;&gt;-->
+
+
+{/block}
+{block name='scripts'}
+<script src="__PUBLIC__/libs/js/pro_city_data.js"></script>
+<script src="__PUBLIC__/libs/js/jquery.cityselect.js"></script>
+<script src="__PUBLIC__/libs/layui/layui.all.js"></script>
+<script src="__PUBLIC__/libs/js/main.js"></script>
+<script src="__PUBLIC__/libs/js/public.js"></script>
+<script src="__PUBLIC__/libs/js/tongji.js"></script>
+
+<script src="__PUBLIC__/libs/js/echarts.min.js"></script>
+<script>
+var teammainmyChart = echarts.init(document.getElementById('teammain'));  //我的团队
+var teamdatamainmyChart = echarts.init(document.getElementById('teamdatamain'));  //团队成员数据
+
+var admin_array = JSON.parse('{$admin_array}');
+var personal_custom_data = JSON.parse('{$personal_custom_data}');
+var personal_tenders_data = JSON.parse('{$personal_tenders_data}');
+
+var echarts={
+    updateteammain:function(){  //我的团队
+        teammainmyChart.setOption(this.options1);   
+    },
+    updateteamdatamain:function(){  //团队成员数据
+        teamdatamainmyChart.setOption(this.options2);
+    },
+    options1:{  //我的团队
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+           // orient: 'vertical',
+           /* x: 'left',
+            data:['直达','营销广告','搜索引擎','邮件营销','联盟广告','视频广告','百度','谷歌','必应','其他']*/
+        },
+        series: [
+            {
+                name:'访问来源',
+                type:'pie',
+                selectedMode: 'single',
+                radius: [0, '20%'],
+                center: ["51%", "60%"],
+
+                label: {
+                    normal: {
+                        position: 'inner'
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value:'{$tenders_count}', name:'成员订单'},
+                    {value:'{$custom_count}', name:'客户'},
+                ]
+            },
+            {
+                name:'访问来源',
+                type:'pie',
+                center: ["51%", "60%"],
+                radius: ['25%', '35%'],
+
+                label: {
+                    normal: {
+                        formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+                        backgroundColor: '#eee',
+                        borderColor: '#aaa',
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        // shadowBlur:3,
+                        // shadowOffsetX: 2,
+                        // shadowOffsetY: 2,
+                        // shadowColor: '#999',
+                        // padding: [0, 7],
+                        rich: {
+                            a: {
+                                color: '#999',
+                                lineHeight: 22,
+                                align: 'center'
+                            },
+                            hr: {
+                                borderColor: '#aaa',
+                                width: '100%',
+                                borderWidth: 0.5,
+                                height: 0
+                            },
+                            b: {
+                                fontSize: 16,
+                                lineHeight: 33
+                            },
+                            per: {
+                                color: '#eee',
+                                backgroundColor: '#334455',
+                                padding: [2, 4],
+                                borderRadius: 2
+                            }
+                        }
+                    }
+                },
+                data:[
+                    {value:'{$dd_num}', name:'沟通待定'},
+                    {value:'{$wx_num}', name:'无效客户'},
+                    {value:'{$wjt_num}', name:'未接通'},
+                    {value:'{$invalid_fb}', name:'分标失败'},
+                    {value:'{$invalid_lf}', name:'量房失败'},
+                    {value:'{$invalid_qd}', name:'签单失败'},
+                    {value:'{$qiandan_num}', name:'签单成功'},
+                ]
+            }
+        ]   
+    },
+    options2:{
+        title: {
+            text: '团队成员数据',
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        legend: {
+            data: ['订单', '客户']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'value',
+            boundaryGap: [0, 0.01],
+
+        },
+        yAxis: {
+            type: 'category',
+            data: admin_array
+        },
+        series: [
+            {
+                name: '订单',
+                type: 'bar',
+                data: personal_tenders_data
+            },
+            {
+                name: '客户',
+                type: 'bar',
+                data: personal_custom_data
+            }
+        ]
+    }
+}
+echarts.updateteammain();
+echarts.updateteamdatamain();
+</script>
+{/block}

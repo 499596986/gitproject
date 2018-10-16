@@ -22,7 +22,7 @@ export default {
   opacity:0;
 }
 .fade-enter-active,.fade-leave-active{
-  transition:all 0.3s;
+  transition:all 0.2s;
 }
 
 /**数据管理**/
