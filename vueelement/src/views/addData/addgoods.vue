@@ -134,6 +134,13 @@
 						console.log(this.form2)
 					}else{
 						console.log("失败")
+						this.$notify.error({
+							title:"错误",
+							message:"请检查输入是否正确",
+							offset:100,
+							customClass:"setErrorSize",
+							duration:1500
+						})
 						return false;
 					}
 				})
@@ -192,7 +199,9 @@
 	    height: 178px;
 	    display: block;
 	}
-
+	.setErrorSize.el-notification .el-icon-error{
+		font-size:33px;
+	}
 </style>
 <style lang="less" scoped>
 	.el-select{width:100%}
@@ -237,5 +246,4 @@
 			color:#000;
 		}
 	}
-
 </style>

@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import "./global/main.js";				//注册全局使用 例如：$echarts
 
 
 import ElementUI from "element-ui";		//引入 elementui

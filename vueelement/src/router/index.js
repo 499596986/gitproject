@@ -32,17 +32,26 @@ export default new Router({
     		{
     			path:'/',
     			name:'firstpage',
-    			component:firstpage
+    			component:firstpage,
+                meta:{
+                    keepAlive:false
+                }
     		},
     		{
     			path:'/userlist',
     			name:"userlist",
-    			component:userlist
+    			component:userlist,
+                meta:{
+                    keepAlive:false
+                }
     		},
     		{
     			path:"/foodlist",
     			name:"foodlist",
-    			component:foodlist
+    			component:foodlist,
+                meta:{
+                    keepAlive:false
+                }
     		},
     		{
     			path:'/orderlist',

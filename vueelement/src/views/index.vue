@@ -3,7 +3,7 @@
 		<el-container>
 			<el-aside style="width:200px;" class="indexaside">
 				<el-menu
-			      default-active="1"
+			      :defaultActive="defaultactive.toString()"
 			      class="el-menu-vertical-demo"
 			      @open="handleOpen"
 			      @close="handleClose"
@@ -63,7 +63,12 @@
 				</div>
 				<div class="indexmain-con">
 					<transition name="fade" mode="out-in">
-						<router-view></router-view>
+						<keep-alive>
+							<router-view v-if="$route.meta.keepAlive"></router-view>
+						</keep-alive>
+					</transition>
+					<transition name="fade" mode="out-in">
+						<router-view v-if="!$route.meta.keepAlive"></router-view>
 					</transition>
 				</div>
 			</el-main>
@@ -85,10 +90,10 @@
 								text:"用户列表",
 								url:"/userlist"
 							},
-							{
+						/*	{
 								text:"商家列表",
 								url:"/",
-							},
+							},*/
 							{
 								text:"食品列表",
 								url:"/foodlist"
@@ -125,7 +130,7 @@
 							}
 						]
 					},
-					{
+					/*{
 						text:"编辑",icon:"el-icon-edit",
 						submenu:[
 							{
@@ -133,7 +138,8 @@
 								url:"/textedit"
 							}
 						]
-					},{
+					},*/
+					{
 						text:"设置",icon:"el-icon-setting",
 						submenu:[
 							{
@@ -152,6 +158,7 @@
 					}
 				],
 				breaddata:[],
+				defaultactive:1,
 			}
 		},
 		methods:{
@@ -165,14 +172,19 @@
 		    	this.breaddata=[];
 				var url=url;
 				var that=this;
+				var indexnum=0;
+				var indexnum2=0;
 				this.menudata.map(function(item,index){
+					indexnum++;
 					if(item.submenu){
 						var flag=0;
 						item.submenu.map(function(item2,index2){
+							indexnum2++;
 							if(item2.url==url){
 								that.breaddata.push({"text":item.text,"url":item.url})
 								that.breaddata.push({"text":item2.text,"url":item2.url});
 								flag=1;
+								that.defaultactive=indexnum+"-"+indexnum2;
 								return;								
 							}
 						})
@@ -182,11 +194,12 @@
 					}else{
 						if(item.url==url){
 							that.breaddata.push({"text":item.text,"url":item.url})
+							that.defaultactive=indexnum;
 							return;							
 						}
 					}
 				})
-				console.log(that.breaddata)
+				//console.log(that.breaddata)
 		    }
 		},
 		created(){
